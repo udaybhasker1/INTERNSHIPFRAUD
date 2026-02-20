@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internship Fraud Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px;
+            width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 28px;
+            animation: slideDown 1s ease;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102,126,234,0.3);
+            outline: none;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.4);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 15px;
+            color: white;
+            animation: fadeIn 1s ease;
+        }
+
+        .result-fraud {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        .result-legitimate {
+            background: linear-gradient(135deg, #56ab2f, #a8e063);
+        }
+
+        @keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+        }
+
+        @keyframes slideDown {
+            0% {opacity: 0; transform: translateY(-30px);}
+            100% {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Internship Fraud Detection</h1>
+
+        <form action="/predict" method="post">
+            <textarea name="email_text" rows="8" placeholder="Paste internship email here..." required></textarea>
+            <button type="submit">Check Now</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result {% if color == '#d32f2f' %}result-fraud{% else %}result-legitimate{% endif %}">
+                {{ prediction }} <br>
+                Confidence: {{ confidence }}%
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
